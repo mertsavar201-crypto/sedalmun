@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Committes - SEDALMUN'26</title>
+<link rel="stylesheet" href="site.css">
+</head>
+
+<body>
+<header>
+<img src="sedalmunlogo.jpeg" alt="SEDALMUN logo" class="logo-image">
+<div class="logo">SEDALMUN'26</div>
+<nav>
+<ul>
+  <li><a href="index.html">Home</a></li>
+  <li><a href="schedule.html">Schedule</a></li>
+  <li><a href="committes.html">Committes</a></li>
+  <li><a href="ourteam.html">Our Team</a></li>
+  <li><a href="aboutus.html">About Us</a></li>
+</ul>
+</nav>
+</header>
+
+  <div class="cursor-circle"></div>
+
+  <div class="hero">
+    <div class="canvas">
+      <div class="rose-bud">
+        <div class="stem"></div>
+        <div class="petals">
+          <div class="petal petal-back"></div>
+          <div class="petal petal-left"></div>
+          <div class="petal petal-right"></div>
+          <div class="petal petal-center"></div>
+        </div>
+        <div class="sepals">
+          <div class="sepal sepal-left"></div>
+          <div class="sepal sepal-right"></div>
+          <div class="sepal sepal-front"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="countdown" id="countdown">
+      <div class="countdown-item">
+        <div class="countdown-value" id="days">0</div>
+        <div class="countdown-label">Days</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="hours">0</div>
+        <div class="countdown-label">Hours</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="minutes">0</div>
+        <div class="countdown-label">Minutes</div>
+      </div>
+      <div class="countdown-item">
+        <div class="countdown-value" id="seconds">0</div>
+        <div class="countdown-label">Seconds</div>
+      </div>
+    </div>
+
+    <h1>SEDALMUN'26</h1>
+    <p>Explore our diverse committees where diplomacy takes shape</p>
+  </div>
+
+  <main>
+    <h2>Our Committees</h2>
+    <p>Content about committees will go here.</p>
+  </main>
+
+  <script>
+    const cursor = document.querySelector('.cursor-circle');
+    const header = document.querySelector('header');
+    
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const y = e.clientY;
+      
+      cursor.style.left = x + 'px';
+      cursor.style.top = y + 'px';
+      
+      const headerRect = header.getBoundingClientRect();
+      const isOverHeader = y >= headerRect.top && y <= headerRect.bottom && x >= headerRect.left && x <= headerRect.right;
+      
+      if (isOverHeader) {
+        cursor.classList.add('header-mode');
+      } else {
+        cursor.classList.remove('header-mode');
+      }
+    });
+
+    const countdownTarget = new Date('2026-10-16T00:00:00');
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = countdownTarget - now;
+      if (diff <= 0) {
+        daysEl.textContent = '0';
+        hoursEl.textContent = '0';
+        minutesEl.textContent = '0';
+        secondsEl.textContent = '0';
+        return;
+      }
+      const seconds = Math.floor((diff / 1000) % 60);
+      const minutes = Math.floor((diff / 1000 / 60) % 60);
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      daysEl.textContent = days;
+      hoursEl.textContent = hours.toString().padStart(2, '0');
+      minutesEl.textContent = minutes.toString().padStart(2, '0');
+      secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
